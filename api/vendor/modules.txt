@@ -1,0 +1,4 @@
+# github.com/PokemonTCG/pokemon-tcg-sdk-go-v2 v0.1.1
+## explicit; go 1.16
+github.com/PokemonTCG/pokemon-tcg-sdk-go-v2/pkg
+github.com/PokemonTCG/pokemon-tcg-sdk-go-v2/pkg/request
