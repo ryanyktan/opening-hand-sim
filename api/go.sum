@@ -1,2 +1,4 @@
 github.com/PokemonTCG/pokemon-tcg-sdk-go-v2 v0.1.1 h1:Y77cb7++XBl3H9raEW6p/MNzRHgpXeK+dNh1OV8NOw0=
 github.com/PokemonTCG/pokemon-tcg-sdk-go-v2 v0.1.1/go.mod h1:kAcPMm0IbuQMaDLtQ+aWrkeJyX8CAcR4I5AyIglC1vY=
+github.com/pkg/errors v0.9.1 h1:FEBLx1zS214owpjy7qsBeixbURkuhQAwrK5UwLGTwt4=
+github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=

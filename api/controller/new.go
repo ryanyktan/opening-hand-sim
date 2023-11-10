@@ -3,12 +3,18 @@ package controller
 import tcg "github.com/PokemonTCG/pokemon-tcg-sdk-go-v2/pkg"
 
 type Controller interface {
+	// InitSetMap makes an api call to initialise the setID to ptcgoCode
+	InitSetMap() error
 	// ParseDecklist parses a TCG Live decklist into an array of Pokemon Card IDs
 	ParseDecklist(decklist []string) ([]tcg.PokemonCard, error)
 }
 
-func New() Controller {
-	return impl{}
+func New(client tcg.Client) Controller {
+	return impl{
+		dbApi: client,
+	}
 }
 
-type impl struct{}
+type impl struct {
+	dbApi tcg.Client
+}
