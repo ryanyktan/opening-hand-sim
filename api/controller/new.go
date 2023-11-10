@@ -2,6 +2,8 @@ package controller
 
 import tcg "github.com/PokemonTCG/pokemon-tcg-sdk-go-v2/pkg"
 
+const setMapPath string = "./api/controller/setmap/setmap.csv"
+
 type Controller interface {
 	// InitSetMap makes an api call to initialise the setID to ptcgoCode
 	InitSetMap() error

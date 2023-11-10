@@ -37,7 +37,7 @@ func (i impl) InitSetMap() error {
 		return err
 	}
 
-	file, err := os.Create("./api/controller/setmap/setmap.csv")
+	file, err := os.Create(setMapPath)
 	if err != nil {
 		return pkgerrors.WithStack(err)
 	}
