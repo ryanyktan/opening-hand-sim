@@ -39,6 +39,26 @@ func (i impl) ParseDecklist(decklist []string) ([]tcg.PokemonCard, error) {
 			continue
 		}
 
+		switch "energy" {
+		case strings.ToLower(splitLine[n-1]):
+			for i := 0; i < cardCount; i++ {
+				deck[currCount] = tcg.PokemonCard{
+					Name: strings.Join(splitLine[1:], " "),
+				}
+				currCount++
+			}
+			continue
+		case strings.ToLower(splitLine[n-2]):
+			// TODO: Figure out energy mapping from live to api
+			for i := 0; i < cardCount; i++ {
+				deck[currCount] = tcg.PokemonCard{
+					Name: strings.Join(splitLine[1:n-2], " "),
+				}
+				currCount++
+			}
+			continue
+		}
+
 		setID, containsCode := ptcgoCodeToSetID[splitLine[n-2]]
 
 		if containsCode {
