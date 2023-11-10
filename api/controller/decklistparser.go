@@ -18,7 +18,6 @@ func (i impl) ParseDecklist(decklist []string) ([]tcg.PokemonCard, error) {
 
 	deck := make([]tcg.PokemonCard, 60)
 	var currCount int
-	var noCode bool
 
 	ptcgoCodeToSetID, err := retrieveSetMapping(setMapPath)
 	if err != nil {
@@ -40,36 +39,49 @@ func (i impl) ParseDecklist(decklist []string) ([]tcg.PokemonCard, error) {
 			continue
 		}
 
-		var name string
-		_, err = strconv.Atoi(splitLine[n-1])
-		if err != nil {
-			noCode = true
-			name = strings.Join(splitLine[1:], " ")
-		}
+		setID, containsCode := ptcgoCodeToSetID[splitLine[n-2]]
 
-		if noCode {
-			if name == "" {
-				return nil, fmt.Errorf("line only has a number")
-			}
-			for i := 0; i < cardCount; i++ {
-				deck[currCount] = tcg.PokemonCard{
-					Name: name,
+		if containsCode {
+			number := splitLine[n-1]
+
+			if isTG[setID] {
+				p := &number
+				switch len(number) {
+				case 1:
+					*p = "TG0" + number
+				case 2:
+					*p = "TG" + number
 				}
 			}
-		} else {
+
+			if setID == "swsh12pt5gg" {
+				p := &number
+				switch len(number) {
+				case 1:
+					*p = "GG0" + number
+				case 2:
+					*p = "GG" + number
+				}
+			}
+
 			for i := 0; i < cardCount; i++ {
 				deck[currCount] = tcg.PokemonCard{
-					ID:     ptcgoCodeToSetID[splitLine[n-2]] + "-" + splitLine[n-1],
-					Name:   name,
-					Number: splitLine[n-1],
+					ID:     setID + "-" + splitLine[n-1],
+					Name:   strings.Join(splitLine[1:n-2], " "),
+					Number: number,
 					Set: tcg.Set{
 						PtcgoCode: splitLine[n-2],
 					},
 				}
 				currCount++
 			}
+		} else {
+			for i := 0; i < cardCount; i++ {
+				deck[currCount] = tcg.PokemonCard{
+					Name: strings.Join(splitLine[1:], " "),
+				}
+			}
 		}
-		noCode = false
 	}
 
 	if currCount != 60 {
@@ -106,4 +118,11 @@ func retrieveSetMapping(file string) (map[string]string, error) {
 	}
 
 	return ptcgoCodeToSetID, nil
+}
+
+var isTG = map[string]bool{
+	"swsh9tg":  true,
+	"swsh10tg": true,
+	"swsh11tg": true,
+	"swsh12tg": true,
 }

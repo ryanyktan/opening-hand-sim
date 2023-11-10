@@ -55,6 +55,7 @@ func (i impl) InitSetMap() error {
 	return nil
 }
 
+// shamelessly taken from stackoverflow
 func ensureBaseDir(fpath string) error {
 	baseDir := path.Dir(fpath)
 	info, err := os.Stat(baseDir)
