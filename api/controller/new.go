@@ -9,6 +9,8 @@ type Controller interface {
 	InitSetMap() error
 	// ParseDecklist parses a TCG Live decklist into an array of Pokemon Card IDs
 	ParseDecklist(decklist []string) ([]tcg.PokemonCard, error)
+	// GenerateOpeningHands generates an array of opening hands and prizes for a given deck
+	GenerateOpeningHands(deck []tcg.PokemonCard, n int) []OpeningHand
 }
 
 func New(client tcg.Client) Controller {

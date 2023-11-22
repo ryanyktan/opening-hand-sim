@@ -31,9 +31,7 @@ func (i impl) ProcessOpeningHandSimulator(c *fiber.Ctx) error {
 	}
 
 	// simulate hands/prizes
-	for i := 0; i < numberOfHands; i++ {
-		//shuffle and deal
-	}
+	_ = i.ctrl.GenerateOpeningHands(deck, numberOfHands)
 
 	// return result + error
 	return nil
