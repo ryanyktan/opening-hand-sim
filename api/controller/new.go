@@ -1,24 +1,21 @@
 package controller
 
-import tcg "github.com/PokemonTCG/pokemon-tcg-sdk-go-v2/pkg"
+import (
+	tcg "github.com/PokemonTCG/pokemon-tcg-sdk-go-v2/pkg"
+	"github.com/gofiber/fiber/v2"
+	"github.com/ryanyktan/opening-hand-sim/api/service"
+)
 
-const setMapPath string = "./api/controller/setmap/setmap.csv"
-
-type Controller interface {
-	// InitSetMap makes an api call to initialise the setID to ptcgoCode
-	InitSetMap() error
-	// ParseDecklist parses a TCG Live decklist into an array of Pokemon Card IDs
-	ParseDecklist(decklist []string) ([]tcg.PokemonCard, error)
-	// GenerateOpeningHands generates an array of opening hands and prizes for a given deck
-	GenerateOpeningHands(deck []tcg.PokemonCard, n int) []OpeningHand
+type handler interface {
+	ProcessOpeningHandSimulator(c *fiber.Ctx) error
 }
 
-func New(client tcg.Client) Controller {
+func New(client tcg.Client) handler {
 	return impl{
-		dbApi: client,
+		svc: service.New(client),
 	}
 }
 
 type impl struct {
-	dbApi tcg.Client
+	svc service.Service
 }

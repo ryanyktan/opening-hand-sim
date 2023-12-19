@@ -1,4 +1,4 @@
-package handler
+package controller
 
 import (
 	"bytes"
@@ -20,7 +20,7 @@ func (i impl) ProcessOpeningHandSimulator(c *fiber.Ctx) error {
 	preparedDecklist := strings.Split(deckString, "\n")
 
 	// parse decklist
-	deck, err := i.ctrl.ParseDecklist(preparedDecklist)
+	deck, err := i.svc.ParseDecklist(preparedDecklist)
 	if err != nil {
 		return err
 	}
@@ -31,7 +31,7 @@ func (i impl) ProcessOpeningHandSimulator(c *fiber.Ctx) error {
 	}
 
 	// simulate hands/prizes
-	_ = i.ctrl.GenerateOpeningHands(deck, numberOfHands)
+	_ = i.svc.GenerateOpeningHands(deck, numberOfHands)
 
 	// return result + error
 	return nil

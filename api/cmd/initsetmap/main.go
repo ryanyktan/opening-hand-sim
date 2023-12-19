@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	tcg "github.com/PokemonTCG/pokemon-tcg-sdk-go-v2/pkg"
-	ctrl "github.com/ryanyktan/opening-hand-sim/api/controller"
+	svc "github.com/ryanyktan/opening-hand-sim/api/service"
 )
 
 const apiKey string = "f028221e-b952-4b18-9f83-22d507a4ed7b"
@@ -18,9 +18,9 @@ func main() {
 func run() error {
 	c := tcg.NewClient(apiKey)
 
-	ctrl := ctrl.New(c)
+	svc := svc.New(c)
 
-	err := ctrl.InitSetMap()
+	err := svc.InitSetMap()
 	if err != nil {
 		return err
 	}
