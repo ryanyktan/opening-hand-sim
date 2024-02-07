@@ -1,13 +1,14 @@
 import React from 'react';
 import { Form, Field, Formik, ErrorMessage } from "formik";
+import '../styles/OpeningHandSim.css'
 
 const OpeningHandSim = () => {
 
     return (
         <div>
-            <p>
+            <h1>
                 opening hand simulator
-            </p>
+            </h1>
             <Formik
                 initialValues={{
                     decklist: '',
@@ -20,7 +21,7 @@ const OpeningHandSim = () => {
             >
                 <Form>
                     <label htmlFor="decklist">Decklist</label>
-                    <Field id="decklist" name="decklist" placeholder="Enter your decklist here" />
+                    <Field id="decklist" name="decklist" placeholder="Enter your decklist here" as="textarea" />
 
                     <div>
                         <label htmlFor="numberOfSimulations">Number Of Simulations:</label>
