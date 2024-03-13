@@ -11,16 +11,14 @@ func (i impl) GenerateOpeningHands(deck []tcg.PokemonCard, n int) []OpeningHand 
 	res := make([]OpeningHand, n)
 
 	for i := 0; i < n; i++ {
-		hand := make([]tcg.PokemonCard, 7)
-		prizes := make([]tcg.PokemonCard, 6)
+		var hand, prizes []tcg.PokemonCard
 		mulligans := 0
-		handNotValid := true
 
 		s := rand.NewSource(time.Now().UnixNano())
 		r := rand.New(s)
 
 		// some logic
-		for handNotValid {
+		for {
 			for j := 0; j < 7; j++ {
 				randomInt := r.Intn(60 - j)
 				if randomInt == 59-j {
@@ -41,7 +39,7 @@ func (i impl) GenerateOpeningHands(deck []tcg.PokemonCard, n int) []OpeningHand 
 					deck[randomInt], deck[59-j] = deck[59-j], deck[randomInt]
 				}
 				prizes = deck[47:53]
-				handNotValid = false
+				break
 			}
 
 			// otherwise, increase mulligan

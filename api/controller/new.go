@@ -6,11 +6,11 @@ import (
 	"github.com/ryanyktan/opening-hand-sim/api/service"
 )
 
-type handler interface {
+type controller interface {
 	ProcessOpeningHandSimulator(c *fiber.Ctx) error
 }
 
-func New(client tcg.Client) handler {
+func New(client tcg.Client) controller {
 	return impl{
 		svc: service.New(client),
 	}

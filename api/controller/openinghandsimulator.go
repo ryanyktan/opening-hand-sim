@@ -30,6 +30,8 @@ func (i impl) ProcessOpeningHandSimulator(c *fiber.Ctx) error {
 		// build query etc
 	}
 
+	// check for valid decklist
+
 	// simulate hands/prizes
 	_ = i.svc.GenerateOpeningHands(deck, numberOfHands)
 
